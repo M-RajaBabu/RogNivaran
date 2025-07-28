@@ -9,7 +9,7 @@ RogNivaran is a modern, full-stack web application for booking doctor appointmen
 - **Patient Portal:** Book appointments, view doctors, manage your profile, and see your appointment history.
 - **Doctor Portal:** Manage appointments, update profile, and view patient details.
 - **Admin Portal:** Add/manage doctors, view all appointments, and oversee platform activity.
-- **Secure Payments:** Integrated with Stripe, Razorpay, and UPI (QR code) for flexible payment options.
+- **Secure Payments:** Pay via **UPI (QR code)**, **credit/debit card** (Stripe, Razorpay), or **cash** at the clinic.
 - **Responsive Design:** Fully mobile-friendly and modern UI using React, Tailwind CSS, and Vite.
 - **Authentication:** JWT-based login for patients, doctors, and admins.
 - **Cloudinary Integration:** Secure image uploads for doctor profiles.
@@ -21,7 +21,7 @@ RogNivaran is a modern, full-stack web application for booking doctor appointmen
 
 - **Frontend:** React, Vite, Tailwind CSS, Axios, React Router
 - **Backend:** Node.js, Express.js, MongoDB (Mongoose)
-- **Payments:** Stripe, Razorpay, UPI (QR)
+- **Payments:** UPI (QR), Credit/Debit Card (Stripe, Razorpay), Cash
 - **Image Hosting:** Cloudinary
 - **Deployment:** Vercel (recommended), Railway/Render (optional for backend)
 
