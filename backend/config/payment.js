@@ -21,11 +21,12 @@ const initializeStripe = () => {
     }
 };
 
-// Initialize Razorpay
+// Initialize Razorpay (Optional)
 const initializeRazorpay = () => {
     try {
+        // Only initialize if both credentials are provided
         if (!process.env.RAZORPAY_ID || !process.env.RAZORPAY_SECRET) {
-            console.warn('⚠️  Razorpay credentials not found in environment variables');
+            console.log('ℹ️  Razorpay not configured - skipping initialization');
             return null;
         }
         razorpayInstance = new razorpay({

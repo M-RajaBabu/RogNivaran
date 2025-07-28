@@ -192,8 +192,8 @@ const MyAppointments = () => {
                                     <p className="text-sm text-gray-600 mb-1">UPI ID:</p>
                                     <p className="font-mono text-lg font-bold text-primary">rajababumeena010-1@okicici</p>
                                     <p className="text-xs text-gray-500 mt-1">You can also pay directly using this UPI ID</p>
-                                </div>
-                            </div>
+                        </div>
+                        </div>
                             
                             {/* Instructions */}
                             <div className="bg-yellow-50 rounded-lg p-4 mb-6 border border-yellow-200">
