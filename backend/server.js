@@ -33,6 +33,7 @@ app.use("/api/admin", adminRouter)
 app.use("/api/doctor", doctorRouter)
 
 app.get("/", (req, res) => {
+  console.log("✅ Backend is running with CORS enabled")
   res.send("API Working")
 });
 
