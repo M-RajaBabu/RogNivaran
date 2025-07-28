@@ -1,0 +1,16 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Brain icon for Neuro Surgeon -->
+  <path d="M24 8C16.268 8 10 14.268 10 22C10 29.732 16.268 36 24 36C31.732 36 38 29.732 38 22C38 14.268 31.732 8 24 8Z" fill="#3B82F6" stroke="#1E40AF" stroke-width="2"/>
+  
+  <!-- Brain lobes -->
+  <path d="M18 18C18 16.895 18.895 16 20 16C21.105 16 22 16.895 22 18C22 19.105 21.105 20 20 20C18.895 20 18 19.105 18 18Z" fill="#FFFFFF"/>
+  <path d="M26 18C26 16.895 26.895 16 28 16C29.105 16 30 16.895 30 18C30 19.105 29.105 20 28 20C26.895 20 26 19.105 26 18Z" fill="#FFFFFF"/>
+  
+  <!-- Brain stem -->
+  <path d="M24 28L24 32" stroke="#1E40AF" stroke-width="2" stroke-linecap="round"/>
+  <path d="M22 30L26 30" stroke="#1E40AF" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Medical cross -->
+  <path d="M24 40L24 44" stroke="#EF4444" stroke-width="2" stroke-linecap="round"/>
+  <path d="M20 42L28 42" stroke="#EF4444" stroke-width="2" stroke-linecap="round"/>
+</svg> 

@@ -1,0 +1,367 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    font-family: Outfit, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #5F6FFF;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #4a5bff;
+}
+
+/* Hide scrollbar for specific elements */
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+/* Focus styles */
+:focus {
+    outline: 2px solid #5F6FFF;
+    outline-offset: 2px;
+    transition: outline 0.2s;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Body styles */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #fafafa;
+    color: #1f2937;
+    line-height: 1.6;
+}
+
+/* Main content padding */
+.main-content {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+    .main-content {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .main-content {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+
+@media (min-width: 1280px) {
+    .main-content {
+        padding-left: 4rem;
+        padding-right: 4rem;
+    }
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.6s ease-out;
+}
+
+.animate-slide-in {
+    animation: slideIn 0.6s ease-out;
+}
+
+.animate-scale-in {
+    animation: scaleIn 0.6s ease-out;
+}
+
+/* Custom utilities */
+.glass-effect {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #5F6FFF 0%, #4a5bff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.shadow-glow {
+    box-shadow: 0 0 20px rgba(95, 111, 255, 0.3);
+}
+
+.shadow-glow-hover:hover {
+    box-shadow: 0 0 30px rgba(95, 111, 255, 0.4);
+}
+
+/* Responsive text utilities */
+.text-responsive-xs {
+    font-size: 0.75rem;
+}
+
+@media (min-width: 640px) {
+    .text-responsive-xs {
+        font-size: 0.875rem;
+    }
+}
+
+.text-responsive-sm {
+    font-size: 0.875rem;
+}
+
+@media (min-width: 640px) {
+    .text-responsive-sm {
+        font-size: 1rem;
+    }
+}
+
+.text-responsive-base {
+    font-size: 1rem;
+}
+
+@media (min-width: 640px) {
+    .text-responsive-base {
+        font-size: 1.125rem;
+    }
+}
+
+.text-responsive-lg {
+    font-size: 1.125rem;
+}
+
+@media (min-width: 640px) {
+    .text-responsive-lg {
+        font-size: 1.25rem;
+    }
+}
+
+.text-responsive-xl {
+    font-size: 1.25rem;
+}
+
+@media (min-width: 640px) {
+    .text-responsive-xl {
+        font-size: 1.5rem;
+    }
+}
+
+/* Button styles */
+.btn-primary {
+    @apply bg-primary text-white px-6 py-3 rounded-xl font-semibold hover:bg-primary/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105;
+}
+
+.btn-secondary {
+    @apply bg-white text-primary border-2 border-primary px-6 py-3 rounded-xl font-semibold hover:bg-primary hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105;
+}
+
+.btn-ghost {
+    @apply bg-transparent text-gray-700 hover:text-primary px-6 py-3 rounded-xl font-semibold hover:bg-gray-50 transition-all duration-300;
+}
+
+/* Card styles */
+.card {
+    @apply bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300;
+}
+
+.card-hover {
+    @apply card hover:shadow-xl hover:-translate-y-1 hover:border-primary/20;
+}
+
+/* Form styles */
+.form-input {
+    @apply w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300;
+}
+
+.form-label {
+    @apply block text-sm font-medium text-gray-700 mb-2;
+}
+
+/* Loading states */
+.loading {
+    @apply animate-pulse bg-gray-200 rounded;
+}
+
+/* Status indicators */
+.status-available {
+    @apply text-green-600 bg-green-100;
+}
+
+.status-unavailable {
+    @apply text-gray-600 bg-gray-100;
+}
+
+/* Responsive spacing */
+.space-responsive {
+    @apply space-y-4 sm:space-y-6 lg:space-y-8;
+}
+
+.gap-responsive {
+    @apply gap-4 sm:gap-6 lg:gap-8;
+}
+
+/* Mobile-first responsive containers */
+.container-responsive {
+    @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+/* Grid responsive utilities */
+.grid-responsive-1 {
+    @apply grid grid-cols-1;
+}
+
+.grid-responsive-2 {
+    @apply grid grid-cols-1 sm:grid-cols-2;
+}
+
+.grid-responsive-3 {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3;
+}
+
+.grid-responsive-4 {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4;
+}
+
+/* Flex responsive utilities */
+.flex-responsive-col {
+    @apply flex flex-col lg:flex-row;
+}
+
+.flex-responsive-center {
+    @apply flex flex-col sm:flex-row items-center;
+}
+
+/* Text responsive utilities */
+.text-responsive-center {
+    @apply text-center lg:text-left;
+}
+
+.text-responsive-left {
+    @apply text-left lg:text-center;
+}
+
+/* Padding responsive utilities */
+.p-responsive {
+    @apply p-4 sm:p-6 lg:p-8;
+}
+
+.px-responsive {
+    @apply px-4 sm:px-6 lg:px-8;
+}
+
+.py-responsive {
+    @apply py-4 sm:py-6 lg:py-8;
+}
+
+/* Margin responsive utilities */
+.m-responsive {
+    @apply m-4 sm:m-6 lg:m-8;
+}
+
+.mx-responsive {
+    @apply mx-4 sm:mx-6 lg:mx-8;
+}
+
+.my-responsive {
+    @apply my-4 sm:my-6 lg:my-8;
+}
+
+/* Print styles */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    
+    .card {
+        box-shadow: none !important;
+        border: 1px solid #ddd !important;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .card {
+        border: 2px solid #000;
+    }
+    
+    .btn-primary {
+        border: 2px solid #000;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .animate-fade-in,
+    .animate-slide-in,
+    .animate-scale-in {
+        animation: none !important;
+    }
+}
