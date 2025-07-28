@@ -14,9 +14,18 @@ const port = process.env.PORT || 4000
 connectDB()
 connectCloudinary()
 
+// CORS configuration
+const allowedOrigins = [
+  'https://rog-nivaran-emqa.vercel.app', // your frontend Vercel URL
+  'http://localhost:5173' // for local development
+];
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true
+}))
+
 // middlewares
 app.use(express.json())
-app.use(cors())
 
 // api endpoints
 app.use("/api/user", userRouter)
