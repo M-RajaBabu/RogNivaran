@@ -1,6 +1,6 @@
 import React from 'react'
 import Navbar from './components/Navbar'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import Home from './pages/Home'
 import Doctors from './pages/Doctors'
 import Login from './pages/Login'
@@ -15,7 +15,6 @@ import Footer from './components/Footer'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Verify from './pages/Verify'
-import AdminLogin from './pages/AdminLogin'
 import AdminDashboard from './pages/Admin/Dashboard'
 import AddDoctor from './pages/Admin/AddDoctor'
 import DoctorsList from './pages/Admin/DoctorsList'
@@ -26,16 +25,19 @@ import DoctorDashboard from './pages/DoctorDashboard'
 import DoctorProfile from './pages/DoctorProfile'
 
 const App = () => {
+  const location = useLocation()
+  const isAdminRoute = location.pathname.startsWith('/admin')
+
   return (
     <div className='min-h-screen flex flex-col'>
       <div className='flex-1'>
-      <ToastContainer />
-      <Navbar />
+        <ToastContainer />
+        {/* Only show Navbar for non-admin routes */}
+        {!isAdminRoute && <Navbar />}
         <main>
-      <Routes>
+          <Routes>
             {/* Full-width pages (no padding) */}
-        <Route path='/login' element={<Login />} />
-            <Route path='/admin/login' element={<AdminLogin />} />
+            <Route path='/login' element={<Login />} />
             
             {/* Pages with padding */}
             <Route path='/' element={<div className="main-content"><Home /></div>} />
@@ -60,10 +62,11 @@ const App = () => {
             {/* Doctor routes */}
             <Route path='/doctor/dashboard' element={<div className="main-content"><DoctorDashboard /></div>} />
             <Route path='/doctor/profile' element={<div className="main-content"><DoctorProfile /></div>} />
-      </Routes>
+          </Routes>
         </main>
       </div>
-      <Footer />
+      {/* Only show Footer for non-admin routes */}
+      {!isAdminRoute && <Footer />}
     </div>
   )
 }
