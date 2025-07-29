@@ -5,7 +5,8 @@ import { assets } from '../assets/assets'
 import RelatedDoctors from '../components/RelatedDoctors'
 import axios from 'axios'
 import { toast } from 'react-toastify'
-import upiQrCode from '../assets/WhatsApp Image 2025-07-28 at 10.13.27_a94f4fb3.jpg'
+// Your actual UPI QR code image
+import upiQrCode from '../assets/upi-qr-code.jpg'
 
 const Appointment = () => {
 

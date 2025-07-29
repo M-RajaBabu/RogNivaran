@@ -16,7 +16,7 @@ import stripe_logo from './stripe_logo.png'
 import razorpay_logo from './razorpay_logo.png'
 import patient_icon from './patient_icon.png'
 import doctor_icon from './doctor icon.png'
-import twitterXIcon from './twitter-x icon.jpeg'
+import twitterXIcon from './twitter-x-icon.jpeg'
 
 // Available doctor images
 import doc1 from './doc1.png'
