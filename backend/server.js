@@ -14,13 +14,23 @@ const port = process.env.PORT || 4000
 connectDB()
 connectCloudinary()
 
-// CORS configuration
+// CORS configuration for deployment
 const allowedOrigins = [
   'https://rog-nivaran-emqa.vercel.app', // your frontend Vercel URL
-  'http://localhost:5173' // for local development
+  'http://localhost:5173', // for local development
+  'http://localhost:3000'  // for local development
 ];
+
 app.use(cors({
-  origin: allowedOrigins,
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true
 }))
 
