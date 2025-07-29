@@ -148,11 +148,23 @@ const adminDashboard = async (req, res) => {
     }
 }
 
+// API to get all patients list for admin panel
+const getAllPatients = async (req, res) => {
+    try {
+        const patients = await userModel.find({}).select('-password')
+        res.json({ success: true, patients })
+    } catch (error) {
+        console.log(error)
+        res.json({ success: false, message: error.message })
+    }
+}
+
 export {
     loginAdmin,
     appointmentsAdmin,
     appointmentCancel,
     addDoctor,
     allDoctors,
+    getAllPatients,
     adminDashboard
 }

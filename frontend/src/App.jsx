@@ -20,6 +20,8 @@ import AdminDashboard from './pages/Admin/Dashboard'
 import AddDoctor from './pages/Admin/AddDoctor'
 import DoctorsList from './pages/Admin/DoctorsList'
 import AllAppointments from './pages/Admin/AllAppointments'
+import PatientsList from './pages/Admin/PatientsList'
+import AdminNavbar from './components/AdminNavbar'
 import DoctorDashboard from './pages/DoctorDashboard'
 import DoctorProfile from './pages/DoctorProfile'
 
@@ -49,10 +51,11 @@ const App = () => {
             <Route path='/verify' element={<div className="main-content"><Verify /></div>} />
             
             {/* Admin routes */}
-            <Route path='/admin/dashboard' element={<div className="main-content"><AdminDashboard /></div>} />
-            <Route path='/admin/add-doctor' element={<div className="main-content"><AddDoctor /></div>} />
-            <Route path='/admin/doctors-list' element={<div className="main-content"><DoctorsList /></div>} />
-            <Route path='/admin/all-appointments' element={<div className="main-content"><AllAppointments /></div>} />
+            <Route path='/admin/dashboard' element={<div className="main-content"><AdminNavbar /><AdminDashboard /></div>} />
+            <Route path='/admin/add-doctor' element={<div className="main-content"><AdminNavbar /><AddDoctor /></div>} />
+            <Route path='/admin/doctors-list' element={<div className="main-content"><AdminNavbar /><DoctorsList /></div>} />
+            <Route path='/admin/patients-list' element={<div className="main-content"><AdminNavbar /><PatientsList /></div>} />
+            <Route path='/admin/all-appointments' element={<div className="main-content"><AdminNavbar /><AllAppointments /></div>} />
             
             {/* Doctor routes */}
             <Route path='/doctor/dashboard' element={<div className="main-content"><DoctorDashboard /></div>} />

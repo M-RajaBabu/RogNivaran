@@ -1,33 +1,175 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { AdminContext } from '../../context/admin/AdminContext'
+import { assets } from '../../assets/assets'
 
 const DoctorsList = () => {
-
-  const { doctors, changeAvailability , aToken , getAllDoctors} = useContext(AdminContext)
+  const { aToken, doctors, getAllDoctors, changeAvailability } = useContext(AdminContext)
+  const [loading, setLoading] = useState(true)
+  const [searchTerm, setSearchTerm] = useState('')
+  const [filterSpeciality, setFilterSpeciality] = useState('all')
 
   useEffect(() => {
     if (aToken) {
-        getAllDoctors()
+      fetchDoctors()
     }
-}, [aToken])
+  }, [aToken])
+
+  const fetchDoctors = async () => {
+    try {
+      setLoading(true)
+      await getAllDoctors()
+    } catch (error) {
+      console.error('Error fetching doctors:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleAvailabilityChange = async (docId) => {
+    try {
+      await changeAvailability(docId)
+      await fetchDoctors() // Refresh the list
+    } catch (error) {
+      console.error('Error changing availability:', error)
+    }
+  }
+
+  const filteredDoctors = doctors.filter(doctor => {
+    const matchesSearch = doctor.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         doctor.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         doctor.speciality?.toLowerCase().includes(searchTerm.toLowerCase())
+    const matchesSpeciality = filterSpeciality === 'all' || doctor.speciality === filterSpeciality
+    return matchesSearch && matchesSpeciality
+  })
+
+  const specialities = [...new Set(doctors.map(doctor => doctor.speciality).filter(Boolean))]
+
+  if (!aToken) {
+    return (
+      <div className='m-5'>
+        <div className='bg-white p-8 rounded-lg shadow-md'>
+          <h2 className='text-2xl font-bold text-gray-800 mb-4'>Admin Access Required</h2>
+          <p className='text-gray-600'>Please login as admin to access doctor data.</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
-    <div className='m-5 max-h-[90vh] overflow-y-scroll'>
-      <h1 className='text-lg font-medium'>All Doctors</h1>
-      <div className='w-full flex flex-wrap gap-4 pt-5 gap-y-6'>
-        {doctors.map((item, index) => (
-          <div className='border border-[#C9D8FF] rounded-xl max-w-56 overflow-hidden cursor-pointer group' key={index}>
-            <img className='bg-[#EAEFFF] group-hover:bg-primary transition-all duration-500' src={item.image} alt="" />
-            <div className='p-4'>
-              <p className='text-[#262626] text-lg font-medium'>{item.name}</p>
-              <p className='text-[#5C5C5C] text-sm'>{item.speciality}</p>
-              <div className='mt-2 flex items-center gap-1 text-sm'>
-                <input onChange={()=>changeAvailability(item._id)} type="checkbox" checked={item.available} />
-                <p>Available</p>
-              </div>
+    <div className='m-5'>
+      <div className='bg-white rounded-lg shadow-md'>
+        {/* Header */}
+        <div className='flex items-center justify-between p-6 border-b'>
+          <div className='flex items-center space-x-3'>
+            <img src={assets.doctor_icon} alt="" className='w-8 h-8' />
+            <h1 className='text-2xl font-bold text-gray-800'>All Doctors</h1>
+            <span className='bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium'>
+              {doctors.length} Doctors
+            </span>
+          </div>
+          
+          {/* Search and Filters */}
+          <div className='flex items-center space-x-4'>
+            <div className='relative'>
+              <input
+                type='text'
+                placeholder='Search doctors...'
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className='pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent'
+              />
+              <svg className='absolute left-3 top-2.5 w-5 h-5 text-gray-400' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z' />
+              </svg>
+            </div>
+            
+            <select
+              value={filterSpeciality}
+              onChange={(e) => setFilterSpeciality(e.target.value)}
+              className='px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent'
+            >
+              <option value='all'>All Specialities</option>
+              {specialities.map(speciality => (
+                <option key={speciality} value={speciality}>{speciality}</option>
+              ))}
+            </select>
+            
+            <button
+              onClick={fetchDoctors}
+              className='bg-primary text-white px-4 py-2 rounded-md hover:bg-primary/90 transition-colors duration-200'
+            >
+              Refresh
+            </button>
+          </div>
+        </div>
+
+        {/* Loading State */}
+        {loading && (
+          <div className='p-8 text-center'>
+            <div className='inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary'></div>
+            <p className='mt-2 text-gray-600'>Loading doctors...</p>
+          </div>
+        )}
+
+        {/* Doctors Grid */}
+        {!loading && (
+          <div className='p-6'>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+              {filteredDoctors.map((doctor, index) => (
+                <div key={doctor._id || index} className='bg-gray-50 rounded-lg p-6 hover:shadow-md transition-shadow duration-200'>
+                  <div className='flex items-start space-x-4'>
+                    <img
+                      src={doctor.image || assets.doc1}
+                      alt={doctor.name}
+                      className='w-16 h-16 rounded-full object-cover'
+                    />
+                    <div className='flex-1'>
+                      <h3 className='text-lg font-semibold text-gray-900 mb-1'>{doctor.name}</h3>
+                      <p className='text-sm text-gray-600 mb-2'>{doctor.speciality}</p>
+                      <p className='text-sm text-gray-500 mb-2'>{doctor.degree}</p>
+                      <p className='text-sm text-gray-500 mb-3'>{doctor.experience} years experience</p>
+                      
+                      <div className='flex items-center justify-between'>
+                        <div className='flex items-center space-x-2'>
+                          <span className='text-lg font-bold text-primary'>₹{doctor.fees}</span>
+                          <span className='text-sm text-gray-500'>consultation</span>
+                        </div>
+                        
+                        <button
+                          onClick={() => handleAvailabilityChange(doctor._id)}
+                          className={`px-3 py-1 rounded-full text-xs font-medium transition-colors duration-200 ${
+                            doctor.isAvailable 
+                              ? 'bg-green-100 text-green-800 hover:bg-green-200' 
+                              : 'bg-red-100 text-red-800 hover:bg-red-200'
+                          }`}
+                        >
+                          {doctor.isAvailable ? 'Available' : 'Unavailable'}
+                        </button>
+                      </div>
+                      
+                      <div className='mt-3 pt-3 border-t border-gray-200'>
+                        <p className='text-xs text-gray-500 line-clamp-2'>{doctor.about}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-        ))}
+        )}
+
+        {/* Empty State */}
+        {!loading && filteredDoctors.length === 0 && (
+          <div className='p-8 text-center'>
+            <img src={assets.doctor_icon} alt="" className='w-16 h-16 mx-auto mb-4 opacity-50' />
+            <h3 className='text-lg font-medium text-gray-900 mb-2'>No doctors found</h3>
+            <p className='text-gray-500'>
+              {searchTerm || filterSpeciality !== 'all' 
+                ? 'Try adjusting your search or filter criteria.' 
+                : 'No doctors have been added yet.'}
+            </p>
+          </div>
+        )}
       </div>
     </div>
   )
