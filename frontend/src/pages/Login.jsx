@@ -6,8 +6,6 @@ import { toast } from 'react-toastify'
 import { assets } from '../assets/assets'
 
 const Login = () => {
-  console.log('Login component is rendering!') // Debug log
-
   const [activeTab, setActiveTab] = useState('patient') // 'patient', 'doctor', 'admin'
   const [isRegistering, setIsRegistering] = useState(false)
 
@@ -23,14 +21,8 @@ const Login = () => {
   const navigate = useNavigate()
   const { backendUrl, token, setToken } = useContext(AppContext)
 
-  // Debug: Log the backendUrl to see if it's defined
-  console.log('Backend URL:', backendUrl)
-  console.log('Token:', token)
-  console.log('AppContext loaded successfully')
-
   // Test backend connection
   useEffect(() => {
-    console.log('Login useEffect running')
     const testBackend = async () => {
       try {
         const response = await axios.get(backendUrl + '/')
@@ -148,8 +140,6 @@ const Login = () => {
     { id: 'admin', label: 'Admin', icon: '👨‍💼' }
   ]
 
-  console.log('About to render login form') // Debug log
-
   return (
     <div className='min-h-screen bg-gradient-to-br from-primary via-blue-600 to-purple-600 flex items-center justify-center p-4 sm:p-6 lg:p-8'>
       <div className='w-full max-w-md sm:max-w-lg lg:max-w-xl'>
@@ -173,6 +163,7 @@ const Login = () => {
           {/* Tab Navigation */}
           <div className='flex bg-gray-100 rounded-xl p-1 mb-6 sm:mb-8'>
             <button
+              type='button'
               onClick={() => setActiveTab('patient')}
               className={`flex-1 py-2 sm:py-3 px-3 sm:px-4 rounded-lg text-sm sm:text-base font-medium transition-all duration-200 ${
                 activeTab === 'patient' 
@@ -183,6 +174,7 @@ const Login = () => {
               Patient
             </button>
             <button
+              type='button'
               onClick={() => setActiveTab('doctor')}
               className={`flex-1 py-2 sm:py-3 px-3 sm:px-4 rounded-lg text-sm sm:text-base font-medium transition-all duration-200 ${
                 activeTab === 'doctor' 
@@ -193,6 +185,7 @@ const Login = () => {
               Doctor
             </button>
             <button
+              type='button'
               onClick={() => setActiveTab('admin')}
               className={`flex-1 py-2 sm:py-3 px-3 sm:px-4 rounded-lg text-sm sm:text-base font-medium transition-all duration-200 ${
                 activeTab === 'admin' 
@@ -232,8 +225,8 @@ const Login = () => {
             </div>
           )}
 
-          {/* Form Fields */}
-          <div className='space-y-4'>
+          {/* Form */}
+          <form onSubmit={handleSubmit} className='space-y-4'>
             {/* Name field for registration */}
             {(isRegistering || activeTab === 'admin') && (
               <div>
@@ -353,15 +346,15 @@ const Login = () => {
                 </div>
               </>
             )}
-        </div>
 
-          {/* Submit Button */}
-          <button
-            type='submit'
-            className='w-full bg-primary text-white py-3 px-4 rounded-md font-medium hover:bg-primary/90 transition-colors duration-200 mt-6'
-          >
-            {isRegistering ? 'Create Account' : 'Login'}
-          </button>
+            {/* Submit Button */}
+            <button
+              type='submit'
+              className='w-full bg-primary text-white py-3 px-4 rounded-md font-medium hover:bg-primary/90 transition-colors duration-200 mt-6'
+            >
+              {isRegistering ? 'Create Account' : 'Login'}
+            </button>
+          </form>
         </div>
       </div>
     </div>
