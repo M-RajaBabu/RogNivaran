@@ -21,7 +21,7 @@ import AddDoctor from './pages/Admin/AddDoctor'
 import DoctorsList from './pages/Admin/DoctorsList'
 import AllAppointments from './pages/Admin/AllAppointments'
 import PatientsList from './pages/Admin/PatientsList'
-import AdminNavbar from './components/AdminNavbar'
+import AdminLayout from './components/AdminLayout'
 import DoctorDashboard from './pages/DoctorDashboard'
 import DoctorProfile from './pages/DoctorProfile'
 
@@ -50,12 +50,12 @@ const App = () => {
             <Route path='/my-profile' element={<div className="main-content"><MyProfile /></div>} />
             <Route path='/verify' element={<div className="main-content"><Verify /></div>} />
             
-            {/* Admin routes */}
-            <Route path='/admin/dashboard' element={<div className="main-content"><AdminNavbar /><AdminDashboard /></div>} />
-            <Route path='/admin/add-doctor' element={<div className="main-content"><AdminNavbar /><AddDoctor /></div>} />
-            <Route path='/admin/doctors-list' element={<div className="main-content"><AdminNavbar /><DoctorsList /></div>} />
-            <Route path='/admin/patients-list' element={<div className="main-content"><AdminNavbar /><PatientsList /></div>} />
-            <Route path='/admin/all-appointments' element={<div className="main-content"><AdminNavbar /><AllAppointments /></div>} />
+            {/* Admin routes - No main navbar for admin */}
+            <Route path='/admin/dashboard' element={<AdminLayout><AdminDashboard /></AdminLayout>} />
+            <Route path='/admin/add-doctor' element={<AdminLayout><AddDoctor /></AdminLayout>} />
+            <Route path='/admin/doctors-list' element={<AdminLayout><DoctorsList /></AdminLayout>} />
+            <Route path='/admin/patients-list' element={<AdminLayout><PatientsList /></AdminLayout>} />
+            <Route path='/admin/all-appointments' element={<AdminLayout><AllAppointments /></AdminLayout>} />
             
             {/* Doctor routes */}
             <Route path='/doctor/dashboard' element={<div className="main-content"><DoctorDashboard /></div>} />
