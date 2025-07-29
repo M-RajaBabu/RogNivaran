@@ -63,6 +63,7 @@ const Login = () => {
           data = { email, password }
         }
       } else if (activeTab === 'admin') {
+        // Admin only has login, no registration
         endpoint = '/api/admin/login'
         data = { email, password }
       }
@@ -77,12 +78,12 @@ const Login = () => {
         timeout: 10000 // 10 second timeout
       })
       
-      console.log(`${activeTab} ${isRegistering ? 'registration' : 'login'} response:`, response.data)
+      console.log(`${activeTab} ${activeTab === 'admin' ? 'login' : (isRegistering ? 'registration' : 'login')} response:`, response.data)
 
       if (response.data.success) {
         localStorage.setItem('token', response.data.token)
         setToken(response.data.token)
-        toast.success(`${activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} ${isRegistering ? 'registration' : 'login'} successful!`)
+        toast.success(`${activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} ${activeTab === 'admin' ? 'login' : (isRegistering ? 'registration' : 'login')} successful!`)
         
         // Navigate based on user type
         if (activeTab === 'patient') {
@@ -96,7 +97,7 @@ const Login = () => {
         toast.error(response.data.message || 'Operation failed')
       }
     } catch (error) {
-      console.error(`${activeTab} ${isRegistering ? 'registration' : 'login'} error:`, error)
+      console.error(`${activeTab} ${activeTab === 'admin' ? 'login' : (isRegistering ? 'registration' : 'login')} error:`, error)
       
       if (error.response) {
         // Server responded with error status
@@ -197,168 +198,10 @@ const Login = () => {
             </button>
           </div>
 
-          {/* Registration/Login Toggle */}
+          {/* Registration/Login Toggle - Only for patient and doctor */}
           {activeTab !== 'admin' && (
             <div className='flex bg-gray-50 rounded-lg p-1 mb-6'>
               <button
                 type='button'
                 onClick={() => setIsRegistering(false)}
-                className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all duration-200 ${
-                  !isRegistering
-                    ? 'bg-white text-primary shadow-sm'
-                    : 'text-gray-600 hover:text-gray-800'
-                }`}
-              >
-                Login
-              </button>
-              <button
-                type='button'
-                onClick={() => setIsRegistering(true)}
-                className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all duration-200 ${
-                  isRegistering
-                    ? 'bg-white text-primary shadow-sm'
-                    : 'text-gray-600 hover:text-gray-800'
-                }`}
-              >
-                Register
-              </button>
-            </div>
-          )}
-
-          {/* Form */}
-          <form onSubmit={handleSubmit} className='space-y-4'>
-            {/* Name field for registration */}
-            {(isRegistering || activeTab === 'admin') && (
-              <div>
-                <label className='block text-sm font-medium text-gray-700 mb-1'>
-                  {activeTab === 'admin' ? 'Admin Name' : 'Full Name'}
-                </label>
-                <input
-                  type='text'
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent'
-                  required
-                />
-              </div>
-            )}
-
-            {/* Email field */}
-            <div>
-              <label className='block text-sm font-medium text-gray-700 mb-1'>
-                Email Address
-              </label>
-              <input
-                type='email'
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent'
-                required
-              />
-            </div>
-
-            {/* Password field */}
-            <div>
-              <label className='block text-sm font-medium text-gray-700 mb-1'>
-                Password
-              </label>
-              <input
-                type='password'
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent'
-                required
-              />
-            </div>
-
-            {/* Doctor-specific fields for registration */}
-            {activeTab === 'doctor' && isRegistering && (
-              <>
-                <div>
-                  <label className='block text-sm font-medium text-gray-700 mb-1'>
-                    Speciality
-                  </label>
-                  <select
-                    value={speciality}
-                    onChange={(e) => setSpeciality(e.target.value)}
-                    className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent'
-                    required
-                  >
-                    <option value=''>Select Speciality</option>
-                    <option value='General Physician'>General Physician</option>
-                    <option value='Gynecologist'>Gynecologist</option>
-                    <option value='Dermatologist'>Dermatologist</option>
-                    <option value='Pediatrician'>Pediatrician</option>
-                    <option value='Neurologist'>Neurologist</option>
-                    <option value='Gastroenterologist'>Gastroenterologist</option>
-                    <option value='Cardiologist'>Cardiologist</option>
-                    <option value='Orthopedic Surgeon'>Orthopedic Surgeon</option>
-                    <option value='Psychiatrist'>Psychiatrist</option>
-                    <option value='Urologist'>Urologist</option>
-                    <option value='Ophthalmologist'>Ophthalmologist</option>
-                    <option value='ENT Specialist'>ENT Specialist</option>
-                    <option value='Dentist'>Dentist</option>
-                    <option value='Physiotherapist'>Physiotherapist</option>
-                    <option value='Ayurvedic Physician'>Ayurvedic Physician</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className='block text-sm font-medium text-gray-700 mb-1'>
-                    Experience (Years)
-                  </label>
-                  <input
-                    type='number'
-                    value={experience}
-                    onChange={(e) => setExperience(e.target.value)}
-                    className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent'
-                    min='0'
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className='block text-sm font-medium text-gray-700 mb-1'>
-                    Consultation Fees (₹)
-                  </label>
-                  <input
-                    type='number'
-                    value={fees}
-                    onChange={(e) => setFees(e.target.value)}
-                    className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent'
-                    min='0'
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className='block text-sm font-medium text-gray-700 mb-1'>
-                    About
-                  </label>
-                  <textarea
-                    value={about}
-                    onChange={(e) => setAbout(e.target.value)}
-                    className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent'
-                    rows='3'
-                    placeholder='Tell us about your expertise and experience...'
-                    required
-                  />
-                </div>
-              </>
-            )}
-
-            {/* Submit Button */}
-            <button
-              type='submit'
-              className='w-full bg-primary text-white py-3 px-4 rounded-md font-medium hover:bg-primary/90 transition-colors duration-200 mt-6'
-            >
-              {isRegistering ? 'Create Account' : 'Login'}
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-export default Login
+                className={`
