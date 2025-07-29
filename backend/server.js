@@ -16,7 +16,9 @@ connectCloudinary()
 
 // CORS configuration for deployment
 const allowedOrigins = [
-  'https://rog-nivaran-emqa.vercel.app', // your frontend Vercel URL
+  'https://rog-nivaran-emqa.vercel.app', // old frontend URL
+  'https://rognivaran-frontend.vercel.app', // new frontend URL
+  'https://rognivaran.vercel.app', // alternative URL
   'http://localhost:5173', // for local development
   'http://localhost:3000'  // for local development
 ];
@@ -25,9 +27,16 @@ app.use(cors({
   origin: function (origin, callback) {
     // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
+    
+    // Allow all Vercel domains
+    if (origin && origin.includes('vercel.app')) {
+      return callback(null, true);
+    }
+    
     if (allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
+      console.log('CORS blocked origin:', origin);
       callback(new Error('Not allowed by CORS'));
     }
   },
