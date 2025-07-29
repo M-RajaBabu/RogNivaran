@@ -83,7 +83,7 @@ const Login = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        timeout: 10000 // 10 second timeout
+        timeout: 30000 // Increased to 30 seconds for Render
       })
       
       console.log(`${activeTab} ${activeTab === 'admin' ? 'login' : (isRegistering ? 'registration' : 'login')} response:`, response.data)
@@ -111,14 +111,18 @@ const Login = () => {
     } catch (error) {
       console.error(`${activeTab} ${activeTab === 'admin' ? 'login' : (isRegistering ? 'registration' : 'login')} error:`, error)
       
-      if (error.response) {
+      if (error.code === 'ECONNABORTED' || error.message.includes('timeout')) {
+        // Timeout error - common with Render free tier
+        console.error('Request timed out - Render server might be starting up')
+        toast.error('Server is taking longer than usual to respond. Please try again in a few seconds. (This is normal for free tier hosting)')
+      } else if (error.response) {
         // Server responded with error status
         console.error('Error response:', error.response.data)
         toast.error(error.response.data?.message || `Server error: ${error.response.status}`)
       } else if (error.request) {
         // Request was made but no response received
         console.error('No response received:', error.request)
-        toast.error('No response from server. Please check your connection.')
+        toast.error('No response from server. The server might be starting up. Please try again.')
       } else {
         // Something else happened
         console.error('Request setup error:', error.message)

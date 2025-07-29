@@ -51,6 +51,15 @@ app.use("/api/user", userRouter)
 app.use("/api/admin", adminRouter)
 app.use("/api/doctor", doctorRouter)
 
+// Health check endpoint for Render
+app.get("/health", (req, res) => {
+  res.status(200).json({ 
+    status: "OK", 
+    message: "Server is running",
+    timestamp: new Date().toISOString()
+  })
+})
+
 app.get("/", (req, res) => {
   console.log("✅ Backend is running with CORS enabled")
   res.send("API Working")
