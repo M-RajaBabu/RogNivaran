@@ -18,9 +18,10 @@ const AdminContextProvider = (props) => {
 
     // Getting all Doctors data from Database using API
     const getAllDoctors = async () => {
-
         try {
-
+            console.log('getAllDoctors - aToken:', aToken)
+            console.log('getAllDoctors - Headers:', { aToken })
+            
             const { data } = await axios.get(backendUrl + '/api/admin/all-doctors', { headers: { aToken } })
             if (data.success) {
                 setDoctors(data.doctors)
@@ -29,9 +30,9 @@ const AdminContextProvider = (props) => {
             }
 
         } catch (error) {
+            console.log('getAllDoctors error:', error)
             toast.error(error.message)
         }
-
     }
 
     // Function to change doctor availablity using API
@@ -96,6 +97,9 @@ const AdminContextProvider = (props) => {
     // Getting all Patients data from Database using API
     const getAllPatients = async () => {
         try {
+            console.log('getAllPatients - aToken:', aToken)
+            console.log('getAllPatients - Headers:', { aToken })
+            
             const { data } = await axios.get(backendUrl + '/api/admin/patients', { headers: { aToken } })
             if (data.success) {
                 setPatients(data.patients)
@@ -105,7 +109,7 @@ const AdminContextProvider = (props) => {
                 return []
             }
         } catch (error) {
-            console.log(error)
+            console.log('getAllPatients error:', error)
             toast.error(error.message)
             return []
         }
@@ -114,7 +118,9 @@ const AdminContextProvider = (props) => {
     // Getting Admin Dashboard data from Database using API
     const getDashData = async () => {
         try {
-            console.log('Admin token:', aToken)
+            console.log('getDashData - aToken:', aToken)
+            console.log('getDashData - Headers:', { aToken })
+            
             const { data } = await axios.get(backendUrl + '/api/admin/dashboard', { headers: { aToken } })
 
             if (data.success) {
@@ -126,7 +132,7 @@ const AdminContextProvider = (props) => {
             }
 
         } catch (error) {
-            console.log('Dashboard fetch error:', error)
+            console.log('getDashData error:', error)
             toast.error(error.message)
         }
     }
