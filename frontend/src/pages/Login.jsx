@@ -21,6 +21,14 @@ const Login = () => {
   const navigate = useNavigate()
   const { backendUrl, token, setToken } = useContext(AppContext)
 
+  // Reset isRegistering to false when admin tab is selected
+  const handleTabChange = (tab) => {
+    setActiveTab(tab)
+    if (tab === 'admin') {
+      setIsRegistering(false) // Always set to login for admin
+    }
+  }
+
   // Test backend connection
   useEffect(() => {
     const testBackend = async () => {
@@ -135,12 +143,6 @@ const Login = () => {
     resetForm()
   }, [activeTab, isRegistering])
 
-  const tabs = [
-    { id: 'patient', label: 'Patient/User', icon: '👤' },
-    { id: 'doctor', label: 'Doctor', icon: '👨‍⚕️' },
-    { id: 'admin', label: 'Admin', icon: '👨‍💼' }
-  ]
-
   return (
     <div className='min-h-screen bg-gradient-to-br from-primary via-blue-600 to-purple-600 flex items-center justify-center p-4 sm:p-6 lg:p-8'>
       <div className='w-full max-w-md sm:max-w-lg lg:max-w-xl'>
@@ -165,7 +167,7 @@ const Login = () => {
           <div className='flex bg-gray-100 rounded-xl p-1 mb-6 sm:mb-8'>
             <button
               type='button'
-              onClick={() => setActiveTab('patient')}
+              onClick={() => handleTabChange('patient')}
               className={`flex-1 py-2 sm:py-3 px-3 sm:px-4 rounded-lg text-sm sm:text-base font-medium transition-all duration-200 ${
                 activeTab === 'patient' 
                   ? 'bg-white text-primary shadow-sm' 
@@ -176,7 +178,7 @@ const Login = () => {
             </button>
             <button
               type='button'
-              onClick={() => setActiveTab('doctor')}
+              onClick={() => handleTabChange('doctor')}
               className={`flex-1 py-2 sm:py-3 px-3 sm:px-4 rounded-lg text-sm sm:text-base font-medium transition-all duration-200 ${
                 activeTab === 'doctor' 
                   ? 'bg-white text-primary shadow-sm' 
@@ -187,7 +189,7 @@ const Login = () => {
             </button>
             <button
               type='button'
-              onClick={() => setActiveTab('admin')}
+              onClick={() => handleTabChange('admin')}
               className={`flex-1 py-2 sm:py-3 px-3 sm:px-4 rounded-lg text-sm sm:text-base font-medium transition-all duration-200 ${
                 activeTab === 'admin' 
                   ? 'bg-white text-primary shadow-sm' 
@@ -204,4 +206,162 @@ const Login = () => {
               <button
                 type='button'
                 onClick={() => setIsRegistering(false)}
-                className={`
+                className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all duration-200 ${
+                  !isRegistering
+                    ? 'bg-white text-primary shadow-sm'
+                    : 'text-gray-600 hover:text-gray-800'
+                }`}
+              >
+                Login
+              </button>
+              <button
+                type='button'
+                onClick={() => setIsRegistering(true)}
+                className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all duration-200 ${
+                  isRegistering
+                    ? 'bg-white text-primary shadow-sm'
+                    : 'text-gray-600 hover:text-gray-800'
+                }`}
+              >
+                Register
+              </button>
+            </div>
+          )}
+
+          {/* Form */}
+          <form onSubmit={handleSubmit} className='space-y-4'>
+            {/* Name field for registration - Only for patient and doctor registration */}
+            {(isRegistering && activeTab !== 'admin') && (
+              <div>
+                <label className='block text-sm font-medium text-gray-700 mb-1'>
+                  Full Name
+                </label>
+                <input
+                  type='text'
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent'
+                  required
+                />
+              </div>
+            )}
+
+            {/* Email field */}
+            <div>
+              <label className='block text-sm font-medium text-gray-700 mb-1'>
+                Email Address
+              </label>
+              <input
+                type='email'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent'
+                required
+              />
+            </div>
+
+            {/* Password field */}
+            <div>
+              <label className='block text-sm font-medium text-gray-700 mb-1'>
+                Password
+              </label>
+              <input
+                type='password'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent'
+                required
+              />
+            </div>
+
+            {/* Doctor-specific fields for registration */}
+            {activeTab === 'doctor' && isRegistering && (
+              <>
+                <div>
+                  <label className='block text-sm font-medium text-gray-700 mb-1'>
+                    Speciality
+                  </label>
+                  <select
+                    value={speciality}
+                    onChange={(e) => setSpeciality(e.target.value)}
+                    className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent'
+                    required
+                  >
+                    <option value=''>Select Speciality</option>
+                    <option value='General Physician'>General Physician</option>
+                    <option value='Gynecologist'>Gynecologist</option>
+                    <option value='Dermatologist'>Dermatologist</option>
+                    <option value='Pediatrician'>Pediatrician</option>
+                    <option value='Neurologist'>Neurologist</option>
+                    <option value='Gastroenterologist'>Gastroenterologist</option>
+                    <option value='Cardiologist'>Cardiologist</option>
+                    <option value='Orthopedic Surgeon'>Orthopedic Surgeon</option>
+                    <option value='Psychiatrist'>Psychiatrist</option>
+                    <option value='Urologist'>Urologist</option>
+                    <option value='Ophthalmologist'>Ophthalmologist</option>
+                    <option value='ENT Specialist'>ENT Specialist</option>
+                    <option value='Dentist'>Dentist</option>
+                    <option value='Physiotherapist'>Physiotherapist</option>
+                    <option value='Ayurvedic Physician'>Ayurvedic Physician</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className='block text-sm font-medium text-gray-700 mb-1'>
+                    Experience (Years)
+                  </label>
+                  <input
+                    type='number'
+                    value={experience}
+                    onChange={(e) => setExperience(e.target.value)}
+                    className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent'
+                    min='0'
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className='block text-sm font-medium text-gray-700 mb-1'>
+                    Consultation Fees (₹)
+                  </label>
+                  <input
+                    type='number'
+                    value={fees}
+                    onChange={(e) => setFees(e.target.value)}
+                    className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent'
+                    min='0'
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className='block text-sm font-medium text-gray-700 mb-1'>
+                    About
+                  </label>
+                  <textarea
+                    value={about}
+                    onChange={(e) => setAbout(e.target.value)}
+                    className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent'
+                    rows='3'
+                    placeholder='Tell us about your expertise and experience...'
+                    required
+                  />
+                </div>
+              </>
+            )}
+
+            {/* Submit Button */}
+            <button
+              type='submit'
+              className='w-full bg-primary text-white py-3 px-4 rounded-md font-medium hover:bg-primary/90 transition-colors duration-200 mt-6'
+            >
+              {activeTab === 'admin' ? 'Admin Login' : (isRegistering ? 'Create Account' : 'Login')}
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default Login
