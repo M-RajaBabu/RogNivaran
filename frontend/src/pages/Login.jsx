@@ -75,8 +75,16 @@ const Login = () => {
         data = { email, password }
       }
 
-      console.log(`Attempting ${isRegistering ? 'registration' : 'login'} for ${activeTab}...`)
-      const response = await axios.post(backendUrl + endpoint, data)
+      console.log(`Making request to: ${backendUrl + endpoint}`)
+      console.log('Request data:', data)
+      
+      const response = await axios.post(backendUrl + endpoint, data, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        timeout: 10000 // 10 second timeout
+      })
+      
       console.log(`${activeTab} ${isRegistering ? 'registration' : 'login'} response:`, response.data)
 
       if (response.data.success) {
@@ -93,11 +101,24 @@ const Login = () => {
           navigate('/admin/dashboard')
         }
       } else {
-        toast.error(response.data.message)
+        toast.error(response.data.message || 'Operation failed')
       }
     } catch (error) {
       console.error(`${activeTab} ${isRegistering ? 'registration' : 'login'} error:`, error)
-      toast.error(error.response?.data?.message || error.message || `${activeTab} ${isRegistering ? 'registration' : 'login'} failed`)
+      
+      if (error.response) {
+        // Server responded with error status
+        console.error('Error response:', error.response.data)
+        toast.error(error.response.data?.message || `Server error: ${error.response.status}`)
+      } else if (error.request) {
+        // Request was made but no response received
+        console.error('No response received:', error.request)
+        toast.error('No response from server. Please check your connection.')
+      } else {
+        // Something else happened
+        console.error('Request setup error:', error.message)
+        toast.error('Request failed: ' + error.message)
+      }
     }
   }
 
