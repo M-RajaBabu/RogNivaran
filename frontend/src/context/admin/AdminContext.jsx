@@ -1,5 +1,5 @@
 import axios from "axios";
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
 
@@ -15,6 +15,23 @@ const AdminContextProvider = (props) => {
     const [doctors, setDoctors] = useState([])
     const [patients, setPatients] = useState([])
     const [dashData, setDashData] = useState(false)
+
+    // Update aToken when localStorage changes
+    useEffect(() => {
+        const storedToken = localStorage.getItem('aToken')
+        if (storedToken && storedToken !== aToken) {
+            console.log('AdminContext - Updating aToken from localStorage:', storedToken)
+            setAToken(storedToken)
+        }
+    }, [aToken])
+
+    // Function to refresh token from localStorage
+    const refreshToken = () => {
+        const storedToken = localStorage.getItem('aToken')
+        console.log('AdminContext - Refreshing token from localStorage:', storedToken)
+        setAToken(storedToken || '')
+        return storedToken
+    }
 
     // Getting all Doctors data from Database using API
     const getAllDoctors = async () => {
@@ -138,7 +155,7 @@ const AdminContextProvider = (props) => {
     }
 
     const value = {
-        aToken, setAToken,
+        aToken, setAToken, refreshToken,
         doctors,
         getAllDoctors,
         changeAvailability,
