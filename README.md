@@ -87,11 +87,11 @@
 ### 🏠 **Home Page Experience**
 
 <div align="center">
-<img src="https://rognivaran.vercel.app/Home%20Page%201.png" alt="RogNivaran Home Page" width="800" />
+<img src="https://raw.githubusercontent.com/M-RajaBabu/RogNivaran/main/frontend/public/Home%20Page%201.png" alt="RogNivaran Home Page" width="800" />
 
 *Our welcoming homepage showcases the platform's core features with a modern, clean design that immediately builds trust with users.*
 
-<img src="https://rognivaran.vercel.app/Home%20Page%202.png" alt="RogNivaran Home Page Features" width="800" />
+<img src="https://raw.githubusercontent.com/M-RajaBabu/RogNivaran/main/frontend/public/Home%20Page%202.png" alt="RogNivaran Home Page Features" width="800" />
 
 *The second section highlights our key differentiators: verified doctors, instant booking, and secure payments.*
 </div>
@@ -99,11 +99,11 @@
 ### 👨‍⚕️ **Doctor Discovery & Booking**
 
 <div align="center">
-<img src="https://rognivaran.vercel.app/All%20Doctors.png" alt="All Doctors Page" width="800" />
+<img src="https://raw.githubusercontent.com/M-RajaBabu/RogNivaran/main/frontend/public/All%20Doctors.png" alt="All Doctors Page" width="800" />
 
 *Comprehensive doctor listing with specialty filters, ratings, and detailed information to help patients make informed decisions.*
 
-<img src="https://rognivaran.vercel.app/Doctor%20Profile%20%20and%20Booking%20Appointment.png" alt="Doctor Profile and Booking" width="800" />
+<img src="https://raw.githubusercontent.com/M-RajaBabu/RogNivaran/main/frontend/public/Doctor%20Profile%20%20and%20Booking%20Appointment.png" alt="Doctor Profile and Booking" width="800" />
 
 *Detailed doctor profiles with booking interface, showing available slots, fees, and appointment scheduling process.*
 </div>
@@ -111,7 +111,7 @@
 ### 🔐 **Authentication System**
 
 <div align="center">
-<img src="https://rognivaran.vercel.app/Sign%20and%20Signup.png" alt="Login and Registration" width="800" />
+<img src="https://raw.githubusercontent.com/M-RajaBabu/RogNivaran/main/frontend/public/Sign%20and%20Signup.png" alt="Login and Registration" width="800" />
 
 *Secure authentication system with separate flows for patients, doctors, and administrators. Features include email verification, password strength validation, and role-based access control.*
 </div>
@@ -119,7 +119,7 @@
 ### 💳 **Payment Processing**
 
 <div align="center">
-<img src="https://rognivaran.vercel.app/Payments.png" alt="Payment Methods" width="800" />
+<img src="https://raw.githubusercontent.com/M-RajaBabu/RogNivaran/main/frontend/public/Payments.png" alt="Payment Methods" width="800" />
 
 *Multi-payment gateway integration supporting UPI (with QR codes), credit/debit cards (Stripe & Razorpay), and cash payments. Real-time payment verification and confirmation.*
 </div>
@@ -127,11 +127,11 @@
 ### 📱 **Patient Dashboard**
 
 <div align="center">
-<img src="https://rognivaran.vercel.app/My%20Appointments.png" alt="My Appointments" width="800" />
+<img src="https://raw.githubusercontent.com/M-RajaBabu/RogNivaran/main/frontend/public/My%20Appointments.png" alt="My Appointments" width="800" />
 
 *Comprehensive appointment management interface showing upcoming appointments, payment status, and appointment history with easy cancellation options.*
 
-<img src="https://rognivaran.vercel.app/User%20Profile.png" alt="User Profile" width="800" />
+<img src="https://raw.githubusercontent.com/M-RajaBabu/RogNivaran/main/frontend/public/User%20Profile.png" alt="User Profile" width="800" />
 
 *Detailed user profile management with personal information, medical history, prescription storage, and account settings.*
 </div>
@@ -139,7 +139,7 @@
 ### 🎛️ **Admin Control Panel**
 
 <div align="center">
-<img src="https://rognivaran.vercel.app/Admin%20Panel.png" alt="Admin Dashboard" width="800" />
+<img src="https://raw.githubusercontent.com/M-RajaBabu/RogNivaran/main/frontend/public/Admin%20Panel.png" alt="Admin Dashboard" width="800" />
 
 *Powerful admin dashboard with real-time analytics, doctor management, patient overview, and comprehensive system monitoring capabilities.*
 </div>
@@ -147,11 +147,11 @@
 ### 📖 **About & Information**
 
 <div align="center">
-<img src="https://rognivaran.vercel.app/About%201.png" alt="About Section 1" width="800" />
+<img src="https://raw.githubusercontent.com/M-RajaBabu/RogNivaran/main/frontend/public/About%201.png" alt="About Section 1" width="800" />
 
 *Informative about section explaining our mission, values, and commitment to healthcare accessibility.*
 
-<img src="https://rognivaran.vercel.app/About%202.png" alt="About Section 2" width="800" />
+<img src="https://raw.githubusercontent.com/M-RajaBabu/RogNivaran/main/frontend/public/About%202.png" alt="About Section 2" width="800" />
 
 *Detailed information about our services, team, and the technology behind RogNivaran.*
 </div>
