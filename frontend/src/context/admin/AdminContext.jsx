@@ -95,20 +95,21 @@ const AdminContextProvider = (props) => {
     // Getting Admin Dashboard data from Database using API
     const getDashData = async () => {
         try {
-
+            console.log('Admin token:', aToken)
             const { data } = await axios.get(backendUrl + '/api/admin/dashboard', { headers: { aToken } })
 
             if (data.success) {
+                console.log('Dashboard data received:', data.dashData)
                 setDashData(data.dashData)
             } else {
+                console.log('Dashboard data error:', data.message)
                 toast.error(data.message)
             }
 
         } catch (error) {
-            console.log(error)
+            console.log('Dashboard fetch error:', error)
             toast.error(error.message)
         }
-
     }
 
     const value = {

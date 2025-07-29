@@ -9,12 +9,37 @@ const Dashboard = () => {
   const { slotDateFormat } = useContext(AppContext)
 
   useEffect(() => {
+    console.log('Admin Dashboard - aToken:', aToken)
     if (aToken) {
       getDashData()
     }
   }, [aToken])
 
-  return dashData && (
+  console.log('Admin Dashboard - dashData:', dashData)
+
+  if (!aToken) {
+    return (
+      <div className='m-5'>
+        <div className='bg-white p-8 rounded-lg shadow-md'>
+          <h2 className='text-2xl font-bold text-gray-800 mb-4'>Admin Access Required</h2>
+          <p className='text-gray-600'>Please login as admin to access the dashboard.</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (!dashData) {
+    return (
+      <div className='m-5'>
+        <div className='bg-white p-8 rounded-lg shadow-md'>
+          <h2 className='text-2xl font-bold text-gray-800 mb-4'>Loading Dashboard...</h2>
+          <p className='text-gray-600'>Please wait while we fetch the dashboard data.</p>
+        </div>
+      </div>
+    )
+  }
+
+  return (
     <div className='m-5'>
 
       <div className='flex flex-wrap gap-3'>

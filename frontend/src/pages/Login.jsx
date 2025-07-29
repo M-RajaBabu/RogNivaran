@@ -89,8 +89,12 @@ const Login = () => {
       console.log(`${activeTab} ${activeTab === 'admin' ? 'login' : (isRegistering ? 'registration' : 'login')} response:`, response.data)
 
       if (response.data.success) {
-        localStorage.setItem('token', response.data.token)
-        setToken(response.data.token)
+        if (activeTab === 'admin') {
+          localStorage.setItem('aToken', response.data.token)
+        } else {
+          localStorage.setItem('token', response.data.token)
+          setToken(response.data.token)
+        }
         toast.success(`${activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} ${activeTab === 'admin' ? 'login' : (isRegistering ? 'registration' : 'login')} successful!`)
         
         // Navigate based on user type
