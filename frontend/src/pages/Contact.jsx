@@ -13,7 +13,7 @@ const Contact = () => {
   }
 
   const handlePhoneClick = () => {
-    window.location.href = 'tel:+919876543210'
+    window.location.href = 'tel:+911234567890'
   }
 
   return (
@@ -37,7 +37,7 @@ const Contact = () => {
               onClick={handlePhoneClick}
               className='cursor-pointer hover:text-primary transition-colors duration-300 hover:underline'
             >
-              Tel: +91-98765-43210
+              Tel: +91-1234567890
             </p>
             <p 
               onClick={handleEmailClick}
